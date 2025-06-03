@@ -10,9 +10,14 @@ const bcrypt = require('bcrypt')
 const attachUser = require("./attachUser.js");
 const { render } = require('ejs');
 require('dotenv').config();
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB connected"))
-  .catch(err => console.log(err));
+const mongoose = require('mongoose');
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => console.log('✅ MongoDB Connected'))
+.catch((err) => console.error('❌ Connection error:', err));
+
 
 
 
@@ -180,5 +185,5 @@ app.post('/login', async (req,res) =>{
 
 
 
-const PORT = process.env.PORT || 3000;
+const PORT =  3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
