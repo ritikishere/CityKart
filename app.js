@@ -21,7 +21,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 
 app.set('view engine', 'ejs');
-app.set("views", path.join(__dirname, "Views"));
+app.set("views", path.join(__dirname, "views"));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
@@ -175,12 +175,6 @@ app.post('/login', async (req,res) =>{
 
     
 })
-
-
-
-
-
-
 
 
 
