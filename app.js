@@ -9,6 +9,10 @@ const auth = require('./auth.js')
 const bcrypt = require('bcrypt')
 const attachUser = require("./attachUser.js");
 const { render } = require('ejs');
+require('dotenv').config();
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB connected"))
+  .catch(err => console.log(err));
 
 
 
@@ -176,6 +180,5 @@ app.post('/login', async (req,res) =>{
 
 
 
-app.listen(3000,()=>{
-    console.log("Running")
-})
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
