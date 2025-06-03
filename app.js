@@ -8,7 +8,6 @@ const cookieParser = require('cookie-parser')
 const auth = require('./auth.js')
 const bcrypt = require('bcrypt')
 const attachUser = require("./attachUser.js");
-const { render } = require('ejs');
 require('dotenv').config();
 const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGO_URI, {
@@ -22,6 +21,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 
 app.set('view engine', 'ejs');
+app.set("views", path.join(__dirname, "Views"));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
@@ -184,6 +184,5 @@ app.post('/login', async (req,res) =>{
 
 
 
-
-const PORT =  3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
