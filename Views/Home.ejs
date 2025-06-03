@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Home - ShopEase</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+</head>
+<body class="dark:bg-gray-700 bg-white min-h-screen transition-colors duration-700 text-gray-900 dark:text-gray-100 overflow-x-hidden">
+
+<!-- Navbar -->
+<nav class="bg-white dark:bg-gray-900 shadow-lg">
+  <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+
+      <!-- Mobile: Logo Left -->
+      <a href="/" class="text-2xl font-extrabold text-blue-700 dark:text-yellow-400 hover:text-blue-900 dark:hover:text-yellow-300 transition duration-300 rounded md:hidden">
+        🛍️ ShopEase
+      </a>
+
+      <!-- Mobile: Right side icons container -->
+      <div class="flex items-center space-x-3 md:hidden">
+        <!-- Dark Mode Toggle (Mobile) -->
+        <button id="themeToggleMobile" aria-label="Toggle Dark Mode"
+          class="bg-blue-700 dark:bg-yellow-500 text-white dark:text-gray-900 p-2.5 rounded-full hover:scale-110 transition transform shadow-lg">
+          <svg class="h-6 w-6 block dark:hidden" id="moonIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path d="M12 3c.132 0 .262.005.391.014a9 9 0 106.595 13.354A7 7 0 0112 3z" />
+          </svg>
+          <svg class="h-6 w-6 hidden dark:block" id="sunIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 3v1m0 16v1m8.66-13.66l-.71.71M4.05 19.95l-.71.71M21 12h-1M4 12H3m16.95 7.05l-.71-.71M4.34 4.34l-.71-.71M12 5a7 7 0 100 14 7 7 0 000-14z" />
+          </svg>
+        </button>
+
+        <!-- Hamburger -->
+        <button id="mobile-menu-toggle" class="text-blue-700 dark:text-yellow-400 focus:outline-none">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Desktop Logo + Search + Right Section -->
+      <a href="/" class="hidden md:block text-2xl font-extrabold text-blue-700 dark:text-yellow-400 hover:text-blue-900 dark:hover:text-yellow-300 transition duration-300 rounded">
+        🛍️ ShopEase
+      </a>
+
+      <div class="hidden md:flex flex-1 px-6 max-w-xl">
+        <input type="text" placeholder="Search products..." class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-yellow-400">
+      </div>
+
+      <div class="hidden md:flex items-center space-x-4">
+        <!-- Dark Mode Toggle (Desktop) -->
+        <button id="themeToggleDesktop" aria-label="Toggle Dark Mode"
+          class="bg-blue-700 dark:bg-yellow-500 text-white dark:text-gray-900 p-2.5 rounded-full hover:scale-110 transition transform shadow-lg">
+          <svg class="h-6 w-6 block dark:hidden" id="moonIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path d="M12 3c.132 0 .262.005.391.014a9 9 0 106.595 13.354A7 7 0 0112 3z" />
+          </svg>
+          <svg class="h-6 w-6 hidden dark:block" id="sunIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 3v1m0 16v1m8.66-13.66l-.71.71M4.05 19.95l-.71.71M21 12h-1M4 12H3m16.95 7.05l-.71-.71M4.34 4.34l-.71-.71M12 5a7 7 0 100 14 7 7 0 000-14z" />
+          </svg>
+        </button>
+
+        <% if (!user) { %>
+          <a href="/login" class="nav-link font-semibold">Login</a>
+          <a href="/signup" class="btn-signup font-semibold">Sign Up</a>
+        <% } else { %>
+          <a href="/cart" class="hover:text-green-600">
+            <button class="dark:hover:bg-yellow-800 dark:text-white hover:bg-blue-700 hover:text-white text-blue-800 p-2 rounded-full text-sm transform transition-transform duration-200 hover:scale-110">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                      d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.6 8H18a1 1 0 100-2H8.4M7 13h0" />
+              </svg>
+            </button>
+          </a>
+
+          <div class="flex items-center gap-2">
+            <img src="<%= user.image || '/default-profile.png' %>" alt="Profile" class="w-8 h-8 rounded-full border-2 border-gray-400 dark:border-gray-600">
+            <span class="font-semibold text-sm"><%= user.firstName %></span>
+          </div>
+
+          <form action="/logout" method="POST">
+            <button type="submit" class="nav-link underline font-semibold text-red-600 hover:text-red-800">Logout</button>
+          </form>
+        <% } %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Dropdown -->
+  <div id="mobile-menu" class="md:hidden hidden px-6 pb-4 space-y-4">
+    <div>
+      <input type="text" placeholder="Search products..." class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-yellow-400">
+    </div>
+
+    <% if (!user) { %>
+      <a href="/login" class="block nav-link bg-blue-700 text-white text-center rounded p-2 font-semibold">Login</a>
+      <a href="/signup" class="block btn-signup bg-blue-700 text-white text-center rounded p-2 font-semibold">Sign Up</a>
+    <% } else { %>
+      <div class="flex items-center gap-2">
+        <img src="<%= user.image || '/default-profile.png' %>" alt="Profile" class="w-8 h-8 rounded-full border-2 border-gray-400 dark:border-gray-600">
+        <span class="font-semibold text-sm"><%= user.firstName %></span>
+      </div>
+      <form action="/logout" method="POST">
+        <button type="submit" class="nav-link w-full bg-red-700 text-white text-center rounded p-2 font-semibold text-red-600 hover:text-red-800">Logout</button>
+      </form>
+    <% } %>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<main class="flex gap-6 justify-center flex-wrap px-6 mt-10 max-w-7xl mx-auto">
+  <%- include('product', products) %>
+</main>
+
+<!-- Styles -->
+<style>
+  .nav-link {
+    @apply text-gray-800 dark:text-gray-200 font-semibold transition duration-300 hover:text-blue-700 dark:hover:text-yellow-400 hover:shadow-[0_0_12px_5px_rgba(29,78,216,0.8)] dark:hover:shadow-[0_0_14px_6px_rgba(234,179,8,0.85)] rounded;
+  }
+  .btn-signup {
+    @apply bg-gradient-to-r from-blue-600 to-blue-700 text-white px-5 py-2 rounded-lg shadow-lg hover:from-blue-700 hover:to-blue-800 transition transform hover:scale-105;
+  }
+</style>
+
+<!-- Scripts -->
+<script>
+  const moonIcons = document.querySelectorAll('#moonIcon');
+  const sunIcons = document.querySelectorAll('#sunIcon');
+
+  function toggleTheme() {
+    document.documentElement.classList.toggle('dark');
+    moonIcons.forEach(icon => icon.classList.toggle('hidden'));
+    sunIcons.forEach(icon => icon.classList.toggle('hidden'));
+  }
+
+  document.getElementById('themeToggleMobile').addEventListener('click', toggleTheme);
+  document.getElementById('themeToggleDesktop').addEventListener('click', toggleTheme);
+
+  const mobileToggle = document.getElementById('mobile-menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  mobileToggle.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+</script>
+
+</body>
+</html>

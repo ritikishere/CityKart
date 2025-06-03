@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🛒 Cart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    };
+  </script>
+</head>
+<body class="transition duration-500 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 bg-white text-white dark:text-white min-h-screen p-5 relative">
+
+    
+  <!-- 🔙 Back -->
+  <a href="/" class="absolute top-4 left-4 flex items-center gap-2 dark:text-yellow-400 text-blue-600 dark:hover:text-yellow-300 hover:text-blue-400 transition duration-300 transform hover:scale-110">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+    <span class="hidden sm:inline  font-semibold">Back</span>
+  </a>
+
+  <!-- 🌗 Dark/Light Toggle -->
+  <button id="themeToggle" class="absolute top-4 right-4 bg-gray-700 dark:bg-yellow-400 text-white dark:text-black p-2 rounded-full hover:scale-110 transition">
+    <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path d="M12 3c.132 0 .262.005.391.014a9 9 0 106.595 13.354A7 7 0 0112 3z" />
+    </svg>
+    <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M12 3v1m0 16v1m8.66-13.66l-.71.71M4.05 19.95l-.71.71M21 12h-1M4 12H3m16.95 7.05l-.71-.71M4.34 4.34l-.71-.71M12 5a7 7 0 100 14 7 7 0 000-14z" />
+    </svg>
+  </button>
+
+  <!-- 👤 User -->
+  <div class="absolute top-4 right-20 flex items-center gap-2 cursor-pointer hover:scale-105 transition">
+    <img src=" <%= user.image %> " alt="User" class="w-12 h-12 rounded-full border- dark:border-yellow-500 ">
+    <span class=" sm:inline dark:text-white text-black font-semibold"> <%= user.firstName %> </span>
+  </div>
+
+
+  <!-- 🛒 Cart Title -->
+  <h1 class="text-3xl font-bold text-blue-700 dark:text-yellow-500 mt-20 text-center">Your Cart</h1>
+
+  <!-- 🧾 Cart Items -->
+    <% cart.forEach(item => { %>
+  <div class="mt-10 space-y-4 max-w-4xl mx-auto">
+
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between dark:bg-gray-800 bg-white dark:text-white text-black px-5 py-4 rounded-xl shadow-md transition duration-300 transform hover:scale-105 hover:shadow-blue-500/90 dark:hover:shadow-[0_0_20px_3px_rgba(255,215,0,0.5)]">
+      <div class="flex items-center  gap-4">
+        <img src=" <%= item.image %>"  alt="" class="w-16 h-16 rounded-xl object-cover ">
+        <div>
+          <h2 class="text-lg font-bold"> <%= item.title %> </h2>
+          <p class="text-sm font-semibold text-blue-500  dark:text-yellow-600">Category: <%= item.category %> </p>
+          <p class="text-sm">Price:  <span class="font-bold"> <%= item.price %></span> </p>
+          <p class="text-sm">Qty: 1</p>
+        </div>
+      </div>
+      <div class="flex gap-3 mt-4 sm:mt-0">
+        <button class="bg-red-500 text-white px-4 py-1 rounded-xl font-semibold hover:bg-red-400 transition">Remove</button>
+        
+        <form action= "/buy/<%= item._id %>" method="POST">
+        <button class="dark:bg-yellow-500 bg-blue-600 text-white dark:text-black px-4 py-1 rounded-xl font-semibold hover:bg-yellow-400 transition">Buy Now</button>
+
+        </form>
+      </div>
+    </div>
+
+    
+
+  </div>
+   <% }) %>
+
+  <!-- 💳 Checkout -->
+  <div class="max-w-4xl mx-auto mt-10 text-center">
+    <button class="dark:bg-yellow-500 bg-blue-700 text-white dark:text-black px-8 py-3 rounded-xl font-bold hover:bg-yellow-400 transition hover:scale-105">
+      Proceed to Checkout
+    </button>
+  </div>
+
+  <!-- Theme Toggle Script -->
+  <script>
+    const toggle = document.getElementById('themeToggle');
+    toggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+    });
+  </script>
+</body>
+</html>

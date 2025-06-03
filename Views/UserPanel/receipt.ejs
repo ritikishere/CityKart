@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Receipt</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 py-10">
+
+<div class="max-w-xl mx-auto bg-white shadow-md rounded-lg p-6" id="receipt">
+  <h2 class="text-2xl font-bold text-center text-blue-700 mb-6">🧾 Order Receipt</h2>
+
+  <!-- Customer Details -->
+  <div class="mb-4 space-y-1 text-sm">
+    <p><strong>Customer:</strong> <%= name  %></p>
+    <p><strong>Email:</strong> <%= user.email %></p>
+    <p><strong>Address:</strong> <%= city %> ,<%= district%> ,  <%=state %> - <%= pincode %></p>
+    <p><strong>Receipt ID:</strong> <%= product.id %><%=user.id%>  </p>
+    <p><strong>Order Date:</strong> <%= new Date().toLocaleDateString() %></p>
+    <p><strong>Expected Delivery By:</strong> <%= new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toLocaleDateString() %></p>
+  </div>
+
+  <!-- Product Table -->
+  <div class="mt-6">
+    <table class="w-full border border-gray-300 rounded-md overflow-hidden">
+      <thead class="bg-gray-200 text-sm">
+        <tr>
+          <th class="py-2 px-3 text-left">Product</th>
+          <th class="py-2 px-3 text-center">Quantity</th>
+          <th class="py-2 px-3 text-right">Original Price (₹)</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+           
+    
+        <tr class="border-t border-gray-300 text-sm">
+          <td class="py-2 px-3"><%= product.title %></td>
+          <td class="py-2 px-3 text-center"> 1 </td>
+          <td class="py-2 px-3 text-right"><%= product.price * 1 %></td>
+        </tr>
+      </tbody>
+      <tfoot class="bg-gray-100 text-sm">
+        <tr>
+          <td class="py-2 px-3 font-semibold" colspan="2">Delivery Charge</td>
+          <td class="py-2 px-3 text-right">₹<%= Math.floor(product.price*0.1 - 12) %></td>
+        </tr>
+        <tr>
+          <td class="py-2 px-3 font-semibold" colspan="2">Total</td>
+          <td class="py-2 px-3 text-right font-bold">₹ <%= product.price * 1 + Math.floor(product.price*0.1 - 12) %></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- QR Code Placeholder -->
+  <div class="mt-6 flex items-center space-x-4">
+    <div class="w-24 h-24 border-2 border-dashed border-gray-400 flex items-center justify-center text-xs text-gray-500">
+      QR Code
+    </div>
+    <div class="text-sm text-gray-600">
+      Scan this QR code to track your order.
+    </div>
+  </div>
+
+  <!-- Thank You Note -->
+  <div class="mt-6 text-center text-green-600 font-semibold text-sm">
+    Thank you for shopping from ShopEase! 🛍️
+  </div>
+</div>
+
+<!-- Download PDF Button -->
+<div class="flex justify-center mt-6">
+  <button onclick="downloadPDF()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-lg shadow-md">
+    Download as PDF
+  </button>
+</div>
+
+<!-- html2pdf JS -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<script>
+  function downloadPDF() {
+    const element = document.getElementById('receipt');
+    html2pdf().from(element).save("Order_Receipt.pdf");
+  }
+</script>
+
+</body>
+</html>
