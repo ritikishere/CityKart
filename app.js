@@ -122,7 +122,7 @@ app.get('/productlist', async (req, res) => {
     });
   });
 
-  res.render('AdminPanel/productlist', {
+  res.render('AdminPanel/productList', {
     products,
     orders,
     users
