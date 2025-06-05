@@ -149,7 +149,7 @@ app.post('/create', async (req,res)=>{
         category
     });
 
-    res.redirect("/productlist")
+    res.redirect("/productList")
 
     
 })
