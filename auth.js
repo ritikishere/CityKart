@@ -9,7 +9,7 @@ module.exports = function (req, res, next) {
 
     try {
         const decoded = jwt.verify(token, 'secretkey');
-        req.user = decoded; // id store ho rahi yahan
+        req.user = decoded; 
         next();
     } catch (err) {
         return res.redirect('/login');

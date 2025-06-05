@@ -10,7 +10,7 @@ module.exports = async function attachUser(req, res, next) {
     }
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, 'secretkey');
         const user = await userModel.findById(decoded.id).lean();
         if (!user) {
             res.locals.user = null;

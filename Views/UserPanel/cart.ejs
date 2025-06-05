@@ -35,7 +35,12 @@
 
   <!-- 👤 User -->
   <div class="absolute top-4 right-20 flex items-center gap-2 cursor-pointer hover:scale-105 transition">
-    <img src=" <%= user.image %> " alt="User" class="w-12 h-12 rounded-full border- dark:border-yellow-500 ">
+    <img 
+  src="<%= user.image || 'https://www.shutterstock.com/image-vector/avatar-gender-neutral-silhouette-vector-600nw-2470054311.jpg' %>" 
+  onerror="this.onerror=null; this.src='https://www.shutterstock.com/image-vector/avatar-gender-neutral-silhouette-vector-600nw-2470054311.jpg';" 
+  alt="Profile" 
+  class="w-10 h-10 border border-white rounded-full border-2 dark:border-gray-800">
+
     <span class=" sm:inline dark:text-white text-black font-semibold"> <%= user.firstName %> </span>
   </div>
 

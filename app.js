@@ -8,20 +8,33 @@ const cookieParser = require('cookie-parser')
 const auth = require('./auth.js')
 const bcrypt = require('bcrypt')
 const attachUser = require("./attachUser.js");
+const wordList = require('./serchList.js')
+
+// const mongoose = require('mongoose');
+
+
+
 require('dotenv').config();
-const mongoose = require('mongoose');
-mongoose.connect(process.env.MONGO_URI, {
+
+
+
+
+ const mongoose = require('mongoose');
+ const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/testapp';
+ mongoose.connect(mongoURI, {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log('✅ MongoDB Connected'))
-.catch((err) => console.error('❌ Connection error:', err));
+  useUnifiedTopology: true, }) .then(() => console.log('MongoDB connected'))
+.catch((err) => console.error('MongoDB connection error:', err));
+
+
+
+
 
 
 
 
 app.set('view engine', 'ejs');
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "Views"));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
@@ -33,6 +46,7 @@ app.use(async (req, res, next) => {
 
 app.get('/',async (req,res)=>{
     let products = await productModel.find()
+
     res.render('Home', {products})
 })
 
@@ -83,14 +97,38 @@ app.get("/signup", (req,res)=>{
 })
 
 
+
+app.post("/createproduct", (req,res)=>{
+    res.redirect("/addproduct")
+})
+
 app.get('/addproduct', (req,res)=>{
     res.render('AdminPanel/addProduct')
 })
-app.get('/productlist', async (req,res)=>{
-    let products = await productModel.find()
 
-    res.render('AdminPanel/productlist',{products})
-})
+
+app.get('/productlist', async (req, res) => {
+  let products = await productModel.find();
+  let users = await userModel.find().populate('orderlist');
+
+  // Flatten all orderlist products with respective user details
+  let orders = [];
+  users.forEach(user => {
+    user.orderlist.forEach(product => {
+      orders.push({
+        user,
+        product
+      });
+    });
+  });
+
+  res.render('AdminPanel/productlist', {
+    products,
+    orders,
+    users
+  });
+});
+
 
 app.get('/delete/:id',async (req,res)=>{
     let deletedproducts = await productModel.findOneAndDelete({_id : req.params.id })
@@ -144,6 +182,7 @@ app.get("/orderlist", auth, async (req,res)=>{
 
     res.render('UserPanel/orderlist', {orders : user.orderlist,
         user: user
+        
     })
 })
 
@@ -177,6 +216,27 @@ app.post('/login', async (req,res) =>{
 })
 
 
+app.get('/search-suggestions', (req, res) => {
+  const query = req.query.q?.toLowerCase() || '';
+  const filtered = wordList
+    .filter(word => word.toLowerCase().startsWith(query))
+    .slice(0, 5);
+  res.json(filtered);
+});
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+app.post("/serch/:category",(req,res)=>{
+    console.log("serched")
+
+})
+
+
+// app.listen(3000,(req,res)=>{
+//     console.log("running")
+// })
+
+
+ const PORT = process.env.PORT || 3000;
+ app.listen(PORT, () => {
+   console.log(`Server running on port ${PORT}`);
+ });

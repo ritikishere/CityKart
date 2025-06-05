@@ -13,7 +13,7 @@
     <div class="flex flex-wrap justify-center items-center gap-11">
   <% products.forEach(function(product){ %>
 
-        <div class="w-64 bg-white dark:bg-gray-800 flex flex-col justify-center items-cente rounded-2xl shadow shadow-black p-1 relative   rounded-full hover:scale-110  active:scale-110 focus:scale-110 transition transform shadow-lg hover:shadow-blue-500/90 dark:hover:shadow-yellow-500/90  ">
+        <div class="w-64 bg-white dark:bg-gray-800 flex flex-col justify-center items-cente rounded-2xl shadow-sm shadow-black p-1 relative   rounded-full hover:scale-110  active:scale-110 focus:scale-110 transition transform shadow-lg hover:shadow-blue-500/90 dark:hover:shadow-yellow-500/90  ">
   <!-- Heart Icon (Top-Right Corner) -->
   <button class="absolute top-5 right-5 text-white hover:text-red-600 text-xl z-10">
     ❤️
@@ -48,8 +48,9 @@
     <h3 class="text-base font-semibold text-gray-800 dark:text-white text-xl"> <%= product.title %> </h3>
 
     <!-- Pricing -->
-    <div class="flex items-center gap-2 mt-1">
-      <span class="text-lg font-bold text-green-600 flex  "> <svg height="20px" width="20px" class=" color-[white] " version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <style type="text/css"> .st0{fill:#000000;} </style> <g> <path class="st0" d="M318.213,66.588h107.818L465.37,0H85.969L46.63,66.588h145.727c32.137,9.476,58.259,28.504,72.702,52.656 H85.969l-39.34,66.588h227.316c-13.482,45.473-65.618,79.365-127.924,79.365H68.313v60.013L288.818,512h96.012v-23.222 L183.333,321.936c84.557-3.351,153.634-61.218,166.283-136.105h76.415l39.339-66.588H345.687 C340.062,100.028,330.637,82.256,318.213,66.588z"></path> </g> </g></svg>  <%= product.price %> </span>
+    <div class="flex items-center gap-1 mt-1">
+      <span class="text-lg font-bold text-orange-700 dark:text-green-400 w-4 h-4  "> <svg version="1.1" fill="currentColor" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" ><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">  <g> <path  d="M318.213,66.588h107.818L465.37,0H85.969L46.63,66.588h145.727c32.137,9.476,58.259,28.504,72.702,52.656 H85.969l-39.34,66.588h227.316c-13.482,45.473-65.618,79.365-127.924,79.365H68.313v60.013L288.818,512h96.012v-23.222 L183.333,321.936c84.557-3.351,153.634-61.218,166.283-136.105h76.415l39.339-66.588H345.687 C340.062,100.028,330.637,82.256,318.213,66.588z"></path> </g> </g></svg> </span>
+      <span class="text-lg font-bold dark:text-green-400 text-orange-700 flex  ">  <%= product.price %> </span>
       <span class="line-through text-sm text-gray-500"> <%= product.orgPrice %> </span>
     </div>
 
@@ -57,12 +58,11 @@
     <div class="flex items-center mt-2">
   <% for(let i = 1; i <= 5; i++) { %>
     <% if(i <= product.rating) { %>
-      <span class="text-yellow-400">★</span>
+      <span class="dark:text-yellow-400 text-yellow-400 ">★</span>
     <% } else { %>
       <span class="text-white">★</span>
     <% } %>
   <% } %>
-  <span class="ml-2 text-gray-300"><%= product.rating %></span>
 </div>
 
   </div>

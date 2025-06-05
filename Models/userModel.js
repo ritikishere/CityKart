@@ -15,7 +15,8 @@ const userSchema =  mongoose.Schema({
     orderlist: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'product'
-    }]
+    }
+    ]
 
 })
 

@@ -1,0 +1,108 @@
+<section class="w-full bg-gray-50 dark:bg-gray-700 shadow py-12">
+  <div class="max-w-7xl mx-auto px-4">
+    <h2 class="text-2xl relative bottom-5 font-bold text-center text-blue-700 dark:text-yellow-400 mb-8">
+      Trending !
+    </h2>
+
+    <style>
+      .swiper-button-next::after,
+      .swiper-button-prev::after {
+        font-size: 20px;
+      }
+    </style>
+
+    <!-- Swiper Container -->
+    <div class="swiper trendingSwiper relative bottom-5 w-full">
+      <div class="swiper-wrapper">
+
+        <!-- Slide 1: Electronics -->
+        <div class="swiper-slide w-full">
+          <div class="w-full md:w-[100vw] h-[200px] relative snap-start flex-shrink-0">
+            <img src="https://pikwizard.com/pw/medium/771f2f00d57c58bacf1ee386799c158b.jpg"
+              alt="Electronics" class="absolute inset-0 w-full h-full object-cover object-left-bottom" />
+            <div class="relative z-10 bg-black/50 text-white h-full flex flex-col justify-center items-center text-center px-4">
+              <h2 class="text-4xl font-bold drop-shadow-lg">🔥 Electronics Bonanza</h2>
+              <p class="text-xl mt-2 drop-shadow-sm">Flat 70% OFF on Laptops, TVs & More</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2: Fashion Fiesta -->
+
+
+
+        <!-- Slide 2: Fashion -->
+        <div class="swiper-slide w-full">
+          <div class="w-full md:w-[100vw] h-[200px] relative snap-start flex-shrink-0">
+            <img src="https://pikwizard.com/pw/medium/0fe9f1b1a738ff73a9b7b4a250b96982.jpg"
+              alt="Fashion" class="absolute inset-0 w-full h-full object-cover object-left-bottom" />
+            <div class="relative z-10 bg-black/50 text-white h-full flex flex-col justify-center items-center text-center px-4">
+              <h2 class="text-4xl font-bold drop-shadow-lg">🛍️ Fashion Fiesta</h2>
+              <p class="text-xl mt-2 drop-shadow-sm">Top Brands - Upto 60% OFF</p>
+            </div>
+          </div>
+        </div>
+
+        
+
+
+        
+
+        <!-- Slide 3: Smartphones -->
+        <div class="swiper-slide w-full">
+          <div class="w-full md:w-[100vw] h-[200px] relative snap-start flex-shrink-0">
+            <img src="https://pikwizard.com/pw/medium/19a32a200bb10591411248ca9e788409.jpg"
+              alt="Smartphones" class="absolute inset-0 w-full h-full object-cover object-left-bottom" />
+            <div class="relative z-10 bg-black/50 text-white h-full flex flex-col justify-center items-center text-center px-4">
+              <h2 class="text-4xl font-bold drop-shadow-lg">📱 Smartphone Carnival</h2>
+              <p class="text-xl mt-2 drop-shadow-sm">Latest 5G Phones from ₹9999</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4: Home Essentials -->
+        <div class="swiper-slide w-full">
+          <div class="w-full md:w-[100vw] h-[200px] relative snap-start flex-shrink-0">
+            <img src="https://pikwizard.com/pw/medium/4b173f6940ac20c2319a79fbd16f54ea.jpg"
+              alt="Home Essentials" class="absolute inset-0 w-full h-full object-cover object-left-bottom" />
+            <div class="relative z-10 bg-black/50 text-white h-full flex flex-col justify-center items-center text-center px-4">
+              <h2 class="text-4xl font-bold drop-shadow-lg">🏠 Home Essentials</h2>
+              <p class="text-xl mt-2 drop-shadow-sm">Upto 50% OFF on Decor & Kitchen</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Navigation Arrows -->
+      <div class="swiper-button-next text-white dark:text-yellow-400"></div>
+      <div class="swiper-button-prev text-white dark:text-yellow-400"></div>
+
+      <!-- Pagination Dots -->
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Swiper Init Script -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    new Swiper('.trendingSwiper', {
+      loop: true,
+      slidesPerView: 1,
+      spaceBetween: 0,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  });
+</script>

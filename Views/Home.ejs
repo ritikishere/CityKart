@@ -10,6 +10,12 @@
       darkMode: 'class',
     }
   </script>
+
+  <!-- SwiperJS CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<!-- SwiperJS Script -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+
 </head>
 <body class="dark:bg-gray-700 bg-white min-h-screen transition-colors duration-700 text-gray-900 dark:text-gray-100 overflow-x-hidden">
 
@@ -37,6 +43,10 @@
           </svg>
         </button>
 
+       
+
+       
+
         <!-- Hamburger -->
         <button id="mobile-menu-toggle" class="text-blue-700 dark:text-yellow-400 focus:outline-none">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -50,9 +60,25 @@
         🛍️ ShopEase
       </a>
 
-      <div class="hidden md:flex flex-1 px-6 max-w-xl">
-        <input type="text" placeholder="Search products..." class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-yellow-400">
-      </div>
+      <div class="hidden md:flex flex-1 px-6 max-w-xl relative">
+
+  <input
+    type="text"
+    id="searchInput"
+    placeholder="Search products..."
+    class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-yellow-400"
+    autocomplete="off"
+  />
+
+  <!-- 🔽 Suggestions List -->
+  <ul
+    id="suggestionList"
+    class="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg shadow-lg z-10 hidden"
+  ></ul>
+</div>
+
+
+
 
       <div class="hidden md:flex items-center space-x-4">
         <!-- Dark Mode Toggle (Desktop) -->
@@ -71,12 +97,12 @@
           <a href="/login" class="nav-link font-semibold">Login</a>
           <a href="/signup" class="btn-signup font-semibold">Sign Up</a>
         <% } else { %>
-          <a href="/orderlist" class="hover:text-green-600">
+          <a href="/orderlist" class="hover:text-green-600  ">
             <button class="dark:hover:bg-yellow-800 dark:text-white hover:bg-blue-700 hover:text-white text-blue-800 p-2 rounded-full text-sm transform transition-transform duration-200 hover:scale-110">
               <svg xmlns="http://www.w3.org/2000/svg" 
      fill="none" viewBox="0 0 24 24" 
      stroke="currentColor" stroke-width="1.5" 
-     class="w-6 h-6 text-white">
+     class="w-6 h-6">
   <path stroke-linecap="round" stroke-linejoin="round" 
         d="M3 7.5L12 3l9 4.5M3 7.5v9l9 4.5m0-13.5v9M3 16.5l9 4.5m0-9l9-4.5m0 9v-9" />
 </svg>
@@ -93,12 +119,17 @@
           </a>
 
           <div class="flex items-center gap-2">
-            <img src="<%= user.image || '/default-profile.png' %>" alt="Profile" class="w-8 h-8 rounded-full border-2 border-gray-400 dark:border-gray-600">
+            <img 
+               src="<%= user.image || 'https://www.shutterstock.com/image-vector/avatar-gender-neutral-silhouette-vector-600nw-2470054311.jpg' %>" 
+               onerror="this.onerror=null; this.src='https://www.shutterstock.com/image-vector/avatar-gender-neutral-silhouette-vector-600nw-2470054311.jpg';" 
+              alt="Profile" 
+              class="w-10 h-10 border border-white rounded-full border-2 dark:border-gray-800">
+
             <span class="font-semibold text-sm"><%= user.firstName %></span>
           </div>
 
           <form action="/logout" method="POST">
-            <button type="submit" class="nav-link underline font-semibold text-red-600 hover:text-red-800">Logout</button>
+            <button type="submit" class="nav-link  font-bold text-red-600 hover:text-red-800">Logout</button>
           </form>
         <% } %>
       </div>
@@ -115,10 +146,44 @@
       <a href="/login" class="block nav-link bg-blue-700 text-white text-center rounded p-2 font-semibold">Login</a>
       <a href="/signup" class="block btn-signup bg-blue-700 text-white text-center rounded p-2 font-semibold">Sign Up</a>
     <% } else { %>
-      <div class="flex items-center gap-2">
-        <img src="<%= user.image || '/default-profile.png' %>" alt="Profile" class="w-8 h-8 rounded-full border-2 border-gray-400 dark:border-gray-600">
-        <span class="font-semibold text-sm"><%= user.firstName %></span>
+      
+
+      <div class="flex gap-4" >
+         <a href="/cart" class="hover:text-green-600">
+            <button class="dark:hover:bg-yellow-800 dark:text-white hover:bg-blue-700 hover:text-white text-blue-800 p-2 rounded-full text-sm transform transition-transform duration-200 hover:scale-110">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                      d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.6 8H18a1 1 0 100-2H8.4M7 13h0" />
+              </svg>
+            </button>
+          </a>
+
+    <a href="/orderlist" class="hover:text-green-600">
+            <button class="dark:hover:bg-yellow-800 dark:text-white hover:bg-blue-700 hover:text-white text-blue-800 p-2 rounded-full text-sm transform transition-transform duration-200 hover:scale-110">
+              <svg xmlns="http://www.w3.org/2000/svg" 
+     fill="none" viewBox="0 0 24 24" 
+     stroke="currentColor" stroke-width="1.5" 
+     class="w-6 h-6 text-white">
+  <path stroke-linecap="round" stroke-linejoin="round" 
+        d="M3 7.5L12 3l9 4.5M3 7.5v9l9 4.5m0-13.5v9M3 16.5l9 4.5m0-9l9-4.5m0 9v-9" />
+</svg>
+
+            </button>
+          </a>
+
+  <button id="themeToggleMobile" aria-label="Toggle Dark Mode"
+          class="bg-blue-700 dark:bg-yellow-500 text-white dark:text-gray-900 p-2.5 rounded-full hover:scale-110 transition transform shadow-lg">
+          <svg class="h-6 w-6 block dark:hidden" id="moonIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path d="M12 3c.132 0 .262.005.391.014a9 9 0 106.595 13.354A7 7 0 0112 3z" />
+          </svg>
+          <svg class="h-6 w-6 hidden dark:block" id="sunIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 3v1m0 16v1m8.66-13.66l-.71.71M4.05 19.95l-.71.71M21 12h-1M4 12H3m16.95 7.05l-.71-.71M4.34 4.34l-.71-.71M12 5a7 7 0 100 14 7 7 0 000-14z" />
+          </svg>
+        </button>        
       </div>
+     
+
       <form action="/logout" method="POST">
         <button type="submit" class="nav-link w-full bg-red-700 text-white text-center rounded p-2 font-semibold text-red-600 hover:text-red-800">Logout</button>
       </form>
@@ -126,8 +191,15 @@
   </div>
 </nav>
 
+<div class="relative p-3 " >
+<%- include('partials/trending') %>
+
+</div>
+
+
 <!-- Main Content -->
 <main class="flex gap-6 justify-center flex-wrap px-6 mt-10 max-w-7xl mx-auto">
+
   <%- include('product', products) %>
 </main>
 
@@ -161,6 +233,56 @@
   mobileToggle.addEventListener('click', () => {
     mobileMenu.classList.toggle('hidden');
   });
+
+
+
+  
+  
+
+    
+
+   
+
+
+  const searchInput = document.getElementById("searchInput");
+  const suggestionList = document.getElementById("suggestionList");
+
+  searchInput.addEventListener("input", async () => {
+    const query = searchInput.value.trim();
+    if (!query) {
+      suggestionList.innerHTML = "";
+      suggestionList.classList.add("hidden");
+      return;
+    }
+
+    try {
+      const response = await fetch(`/search-suggestions?q=${encodeURIComponent(query)}`);
+      const suggestions = await response.json();
+
+      if (suggestions.length === 0) {
+        suggestionList.classList.add("hidden");
+        return;
+      }
+
+      suggestionList.innerHTML = suggestions.map(word => `<li class="px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer">${word}</li>`).join('');
+      suggestionList.classList.remove("hidden");
+
+      // Add click functionality
+      suggestionList.querySelectorAll("li").forEach(li => {
+        li.addEventListener("click", () => {
+          searchInput.value = li.textContent;
+          suggestionList.classList.add("hidden");
+        });
+      });
+
+    } catch (error) {
+      console.error("Error fetching suggestions:", error);
+    }
+  });
+
+
+
+
 </script>
 
 </body>
