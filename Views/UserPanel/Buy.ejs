@@ -19,12 +19,12 @@
     };
   </script>
 </head>
-<body class="transition duration-500 bg-white dark:bg-gradient-to-r dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-black dark:text-white min-h-screen flex items-center justify-center p-6 relative">
+<body class="transition duration-500 bg-white dark:bg-gradient-to-r dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-black dark:text-white min-h-screen flex items-center justify-center p-5 relative">
 
 
-  <div class="flex flex-col gap-4">
+  <div class="flex flex-col  gap-4">
 
-    <div class="flex justify-between">   <!-- 🔙 Back Button -->
+    <div class="flex px-12 justify-between">   <!-- 🔙 Back Button -->
   <a href="/" class="  flex items-center gap-2 text-primary dark:text-yellow-400 hover:text-accent dark:hover:text-yellow-300 transition duration-300 transform hover:scale-110">
     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7m-9 9v-6h4v6m5 0h2a2 2 0 002-2v-7a2 2 0 00-.586-1.414l-8-8a2 2 0 00-2.828 0l-8 8A2 2 0 003 12v7a2 2 0 002 2h2" />
@@ -46,7 +46,7 @@
   
 
   <!-- 🧾 Checkout Card -->
-  <div class="bg-white dark:bg-white   dark:text-black rounded-2xl shadow-2xl p-6 md:p-8 w-full max-w-3xl glow transition transform  hover:shadow-blue-500/90 dark:hover:shadow-yellow-500/90 hover:scale-103 ">
+  <div class="bg-white dark:bg-white   dark:text-black rounded-2xl shadow-2xl  md:p-8 w-full max-w-3xl glow transition transform  hover:shadow-blue-500/90 dark:hover:shadow-yellow-500/90 hover:scale-103 ">
     <h2 class="text-2xl md:text-3xl font-bold text-center mb-6 text-primary dark:text-yellow-600">🧾 Confirm Your Order</h2>
 
     <div class="flex flex-col lg:flex-row items-start gap-6 lg:gap-10">
@@ -54,7 +54,7 @@
       <!-- Product Info -->
 
 
-      <div class="flex-1">
+      <div class="flex-1 p-3">
         <img src="<%= product.image %>" alt="Product" class=" md:h-60 object-cover rounded-xl shadow-md mb-4">
         <h3 class="text-xl md:text-2xl font-semibold"><%= product.title %></h3>
         <p class="text-gray-600 dark:text-gray-700 mt-1"><%= product.category %></p>
@@ -62,7 +62,8 @@
         <p class="text-lg font-bold text-green-600">Delivery Charge: <%=  Math.floor(product.price*0.1) - 12  %> </p>
         <p class="text-lg font-bold text-green-700">Total: ₹<%= Math.floor(product.price *0.1) - 12 + product.price %></p>
 
-        <div class="h-[25vh] w-[25vw] bg-gray-200 overflow-auto p-5 rounded">
+        <div class="h-[30vh] w-[90vw] sm:w-[70vw] md:w-[50vw] lg:w-[30vw] bg-gray-200 overflow-auto p-5 rounded">
+
   <% product.reviews.forEach(async (review) => { %>
     <div class="flex items-start gap-4 border-b pb-4">
       <img src="https://tse1.mm.bing.net/th?id=OIP.2wRpI007gG7aZqFRrBmGRwHaFP&pid=Api&P=0&h=220" alt="User" class="w-12 h-12 rounded-full object-cover border-2 border-primary">
@@ -93,7 +94,7 @@
 
 
       <!-- Form -->
-      <form action="/place-order/<%= product._id %>" method="POST" class="flex-1 space-y-4 w-full">
+      <form action="/place-order/<%= product._id %>" method="POST" class="flex-1 space-y-4 p-1 w-full">
         <div>
           <label class="block text-sm font-medium text-gray-700">Full Name</label>
           <input type="text" name="name" placeholder="Enter your name" required
