@@ -61,7 +61,36 @@
         <p class="text-lg font-bold text-green-600 mt-3">Original Price: ₹<%= product.price %></p>
         <p class="text-lg font-bold text-green-600">Delivery Charge: <%=  Math.floor(product.price*0.1) - 12  %> </p>
         <p class="text-lg font-bold text-green-700">Total: ₹<%= Math.floor(product.price *0.1) - 12 + product.price %></p>
+
+        <div class="h-[25vh] w-[25vw] bg-gray-200 overflow-auto p-5 rounded">
+  <% product.reviews.forEach(async (review) => { %>
+    <div class="flex items-start gap-4 border-b pb-4">
+      <img src="https://tse1.mm.bing.net/th?id=OIP.2wRpI007gG7aZqFRrBmGRwHaFP&pid=Api&P=0&h=220" alt="User" class="w-12 h-12 rounded-full object-cover border-2 border-primary">
+      <div>
+        <div class="flex items-center justify-between">
+          <h4 class="font-semibold text-lg">
+            User
+          </h4>
+          <div class="flex text-yellow-400">
+            <% for(let i = 1; i <= 5; i++) { %>
+              <% if(i <= review.stars) { %>
+                <span class="text-yellow-400">★</span>
+              <% } else { %>
+                <span class="text-white">★</span>
+              <% } %>
+            <% } %>
+          </div>
+        </div>
+        <p class="text-gray-700 dark:text-black mt-2"><%= review.comment || '' %></p>
       </div>
+    </div>
+  <% }) %>
+</div>
+
+      </div>
+
+
+
 
       <!-- Form -->
       <form action="/place-order/<%= product._id %>" method="POST" class="flex-1 space-y-4 w-full">
@@ -113,6 +142,7 @@
       </form>
     </div>
   </div>
+  
   </div>
 
   

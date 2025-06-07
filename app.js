@@ -9,6 +9,19 @@ const auth = require('./auth.js')
 const bcrypt = require('bcrypt')
 const attachUser = require("./attachUser.js");
 const wordList = require('./serchList.js')
+const multer = require("multer")
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'Public/uploads')
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, uniqueSuffix + path.extname(file.originalname))
+  }
+})
+
+const upload = multer({ storage: storage })
 
 // const mongoose = require('mongoose');
 
@@ -32,13 +45,12 @@ require('dotenv').config();
 
 
 
-
 app.set('view engine', 'ejs');
 app.set("views", path.join(__dirname, "Views"));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname,'public')));
+app.use(express.static(path.join(__dirname,'Public')));
 app.use(async (req, res, next) => {
   await attachUser(req, res, next);
 });
@@ -65,8 +77,24 @@ app.post("/buy/:id", auth, async (req, res) => {
   const product = await productModel.findById(req.params.id); 
   
 
-  res.render("UserPanel/Buy", { product }); // Yeh line mein product bhejna zaroori hai
+  res.render("UserPanel/Buy", { product }); 
 });
+app.post("/removeitem/:id", auth, async (req, res) => {
+  try {
+    const user = await userModel.findById(req.user.id);
+
+    // Remove product from user's cart
+    user.cart = user.cart.filter(prodId => prodId.toString() !== req.params.id);
+
+    await user.save();
+
+    res.redirect("/cart");
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 
 app.post("/place-order/:id", auth, async (req, res) => {
   
@@ -110,7 +138,6 @@ app.get('/addproduct', (req,res)=>{
 app.get('/productlist', async (req, res) => {
   let products = await productModel.find();
   let users = await userModel.find().populate('orderlist');
-
   // Flatten all orderlist products with respective user details
   let orders = [];
   users.forEach(user => {
@@ -153,18 +180,19 @@ app.post('/create', async (req,res)=>{
 
     
 })
-app.post('/createuser', async (req,res)=>{
-    let {firstName,lastName,email,contact,image,password} = req.body
+app.post('/createuser', upload.single('image'), async (req,res)=>{
+    let {firstName,lastName,email,contact,password} = req.body
     const hashed = await bcrypt.hash(password,10)
+    const imageFilename = req.file ? req.file.filename : 'default.png'
     let createdUser = await userModel.create({
         firstName,
         lastName,
         email,
         contact,
-        image,
+        image: imageFilename,
         password : hashed
     });
-
+  
     res.redirect("/login")
     
 })
@@ -229,6 +257,31 @@ app.post("/serch/:category",(req,res)=>{
     console.log("serched")
 
 })
+
+
+app.post("/addreview/:id/:reviewer", async (req, res) => {
+  const product = await productModel.findById(req.params.id);
+  const reviewer = await userModel.findById(req.params.reviewer);
+  const stars = Number(req.body.stars);
+  const comment = req.body.comment;
+
+  // Add review object in product
+  product.reviews.push({
+    userId: reviewer._id,
+    comment: comment,
+    stars: stars
+  });
+
+  // Update rating details
+  product.reviewno++;
+  product.starCounts += stars;
+  product.rating = product.starCounts / product.reviewno;
+
+  await product.save();
+
+  res.redirect("/");
+});
+
 
 
 // app.listen(3000,(req,res)=>{

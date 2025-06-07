@@ -36,10 +36,9 @@
   <!-- 👤 User -->
   <div class="absolute top-4 right-20 flex items-center gap-2 cursor-pointer hover:scale-105 transition">
     <img 
-  src="<%= user.image || 'https://www.shutterstock.com/image-vector/avatar-gender-neutral-silhouette-vector-600nw-2470054311.jpg' %>" 
-  onerror="this.onerror=null; this.src='https://www.shutterstock.com/image-vector/avatar-gender-neutral-silhouette-vector-600nw-2470054311.jpg';" 
-  alt="Profile" 
-  class="w-10 h-10 border border-white rounded-full border-2 dark:border-gray-800">
+               src="/uploads/<%= user.image  %>" 
+              alt="Profile" 
+              class="w-10 h-10 border border-white rounded-full border-2 dark:border-gray-800">
 
     <span class=" sm:inline dark:text-white text-black font-semibold"> <%= user.firstName %> </span>
   </div>
@@ -63,7 +62,10 @@
         </div>
       </div>
       <div class="flex gap-3 mt-4 sm:mt-0">
+        <form action="/removeitem/<%= item._id %>" method="POST">
         <button class="bg-red-500 text-white px-4 py-1 rounded-xl font-semibold hover:bg-red-400 transition">Remove</button>
+
+        </form>
         
         <form action= "/buy/<%= item._id %>" method="POST">
         <button class="dark:bg-yellow-500 bg-blue-600 text-white dark:text-black px-4 py-1 rounded-xl font-semibold hover:bg-yellow-400 transition">Buy Now</button>

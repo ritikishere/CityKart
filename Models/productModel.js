@@ -9,8 +9,35 @@ const productSchema = mongoose.Schema({
     image: String,
     price: Number,
     orgPrice: Number,
-    rating: Number,
-    category:String
+    category:String,
+    starCounts:{
+        type:Number,
+        default:0
+    },
+    reviewno:{
+        type:Number,
+        default:0
+    },
+    rating:{
+        type:Number,
+        default:0
+    },
+    
+    reviews: [
+        {
+            userId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'User'
+            },
+            comment: String,
+            stars: Number,
+            date: {
+                type: Date,
+                default: Date.now
+            }
+        }
+    ]
+
 })
 
 module.exports = mongoose.model('product',productSchema)

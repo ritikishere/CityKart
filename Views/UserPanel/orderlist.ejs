@@ -34,7 +34,10 @@
 
   <!-- 👤 User -->
   <div class="absolute top-4 right-20 flex items-center gap-2 cursor-pointer hover:scale-105 transition">
-    <img src="<%= user.image %>" alt="User" class="w-12 h-12 rounded-full border- dark:border-yellow-500">
+     <img 
+               src="/uploads/<%= user.image  %>" 
+              alt="Profile" 
+              class="w-10 h-10 border border-white rounded-full border-2 dark:border-gray-800">
     <span class="sm:inline dark:text-white text-black font-semibold"><%= user.firstName %></span>
   </div>
 
@@ -52,14 +55,34 @@
           <p class="text-sm font-semibold text-blue-500 dark:text-yellow-600">Category: <%= order.category %></p>
           <p class="text-sm">Price: <span class="font-bold"><%= Math.floor(order.price*0.1 -12) + order.price %></span></p>
           <p class="text-sm">Ordered on: Today</p>
-          <p class="text-sm">Status: 
+          <p class="text-sm">Status: <%= order.status || "Confirmed"  %>
             
           </p>
         </div>
       </div>
       <div class="flex gap-3 mt-4 sm:mt-0">
-        <button class="bg-red-500 text-white px-4 py-1 rounded-xl font-semibold hover:bg-red-400 transition">Cancel</button>
-        <button class="dark:bg-yellow-500 bg-blue-600 text-white dark:text-black px-4 py-1 rounded-xl font-semibold hover:bg-yellow-400 transition">Invoice</button>
+        <form action="/addreview/<%= order._id  %>/<%= user._id %>" method="POST" class="space-y-4">
+    <h3 class="text-lg font-semibold text-primary dark:text-yellow-600">Give Your Review</h3>
+
+    <textarea name="comment" rows="3" required placeholder="Write your review..."
+      class="w-full p-3 border border-blue-300 rounded-lg bg-white text-black focus:ring focus:ring-primary"></textarea>
+
+    <div class="flex items-center gap-2">
+      <label class="font-medium dark:text-gray-200 text-black">Your Rating:</label>
+      <select name="stars" required class="border border-blue-300 rounded-md p-2 bg-white text-black">
+        <option value="5">⭐⭐⭐⭐⭐</option>
+        <option value="4">⭐⭐⭐⭐</option>
+        <option value="3">⭐⭐⭐</option>
+        <option value="2">⭐⭐</option>
+        <option value="1">⭐</option>
+      </select>
+    </div>
+
+    <button type="submit"
+      class="bg-blue-600 hover:bg-accent text-white font-semibold px-3 py-2 dark:bg-gray-700 rounded-xl transition transform dark:text-white  hover:scale-105">
+      Submit Review
+    </button>
+  </form>
       </div>
     </div>
   </div>

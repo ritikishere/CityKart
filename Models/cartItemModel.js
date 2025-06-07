@@ -8,6 +8,7 @@ const cartItemSchema = mongoose.Schema({
     orgPrice: Number,
     rating: Number,
     category:String
+
 })
 
 module.exports = mongoose.model('cartItem',cartSchema)

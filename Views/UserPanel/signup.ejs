@@ -41,7 +41,7 @@
   <div class="bg-gray-800 dark:bg-white dark:text-black rounded-2xl shadow-2xl p-8 w-full max-w-6xl glow transition-all duration-500">
     <h2 class="text-3xl font-bold text-center mb-8 animate-pulse text-green-400 dark:text-green-600">📝 Sign Up</h2>
 
-    <form action="/createuser" method="POST">
+    <form action="/createuser" method="POST" enctype="multipart/form-data">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- First Name -->
         <div>
@@ -73,8 +73,8 @@
 
         <!-- Image -->
         <div>
-          <label class="block text-sm font-medium text-gray-300 dark:text-gray-700">Image URL</label>
-          <input type="text" name="image" required placeholder="https://..."
+          <label class="block text-sm font-medium text-gray-300 dark:text-gray-700">Image</label>
+          <input type="file" name="image"  placeholder="choose from file"
             class="mt-1 w-full rounded-lg bg-gray-700 dark:bg-gray-100 text-white dark:text-black p-2 border border-gray-600 dark:border-gray-300" />
         </div>
 

@@ -93,7 +93,6 @@
         <div>
           <p><strong>User name:</strong> <%= order.user.firstName %> <%= order.user.lastName %></p>
           <p><strong>Email:</strong> <%= order.user.email %></p>
-          <p><strong>Address:</strong> <%= order.city || "N/A" %>, <%= order.district || "N/A" %>, <%= order.state || "N/A" %> - <%= order.pincode || "N/A" %></p>
           <p><strong>Product:</strong> <%= order.product.title %> (₹<%= order.product.price %>)</p>
           <label class="block mt-2">
             <strong>Status:</strong>
@@ -114,11 +113,10 @@
     <h2 class="text-xl font-bold mb-4">All Users</h2>
     <% users.forEach(user => { %>
       <div class="bg-blue-100 dark:bg-gray-800 p-4 rounded-xl mb-4 flex items-center gap-4">
-        <img 
-  src="<%= user.image || 'https://www.shutterstock.com/image-vector/avatar-gender-neutral-silhouette-vector-600nw-2470054311.jpg' %>" 
-  onerror="this.onerror=null; this.src='https://www.shutterstock.com/image-vector/avatar-gender-neutral-silhouette-vector-600nw-2470054311.jpg';" 
-  alt="Profile" 
-  class="w-10 h-10 border border-white rounded-full border-2 dark:border-gray-800">
+         <img 
+               src="/uploads/<%= user.image  %>" 
+              alt="Profile" 
+              class="w-10 h-10 border border-white rounded-full border-2 dark:border-gray-800">
 
         <div>
           <p class="text-blue-900 dark:text-white"><strong>Name:</strong> <%= user.firstName %> <%= user.lastName %></p>
