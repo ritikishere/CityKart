@@ -97,15 +97,25 @@ app.post("/removeitem/:id", auth, async (req, res) => {
 
 
 app.post("/place-order/:id", auth, async (req, res) => {
-  
-const user = await userModel.findById(req.user.id);
-  const product = await productModel.findById(req.params.id); // Yeh line add karo
+  const user = await userModel.findById(req.user.id);
+  const product = await productModel.findById(req.params.id); 
+
+  // Push order to product.orders array with userId, status, date
+  product.orders.push({
+    userId: user._id,
+    status: "Confirmed",
+    date: new Date()
+  });
+  await product.save();
+
+  // Also push to user's orderlist
+  user.orderlist.push(product._id);
+  await user.save();
+
   const { name, state, district, city, pincode, payment } = req.body;
 
-  user.orderlist.push(req.params.id);
-  await user.save();
-  res.render("UserPanel/receipt",{
-     product,
+  res.render("UserPanel/receipt", {
+    product,
     user,
     name,
     state,
@@ -113,8 +123,9 @@ const user = await userModel.findById(req.user.id);
     city,
     pincode,
     payment
-  })
+  });
 });
+
 
 
 
@@ -260,7 +271,7 @@ app.post("/serch/:category",(req,res)=>{
 
 
 app.post("/addreview/:id/:reviewer", async (req, res) => {
-  const product = await productModel.findById(req.params.id);
+  const product = await productModel.findById(req.params.id)
   const reviewer = await userModel.findById(req.params.reviewer);
   const stars = Number(req.body.stars);
   const comment = req.body.comment;
@@ -269,7 +280,8 @@ app.post("/addreview/:id/:reviewer", async (req, res) => {
   product.reviews.push({
     userId: reviewer._id,
     comment: comment,
-    stars: stars
+    stars: stars,
+    
   });
 
   // Update rating details
@@ -281,6 +293,29 @@ app.post("/addreview/:id/:reviewer", async (req, res) => {
 
   res.redirect("/");
 });
+
+
+
+
+app.post("/setstatus/:productId/:userId", async (req, res) => {
+  const { productId, userId } = req.params;
+  const newStatus = req.body.status;
+
+  const product = await productModel.findById(productId);
+  if (!product) return res.send("Product not found");
+
+  // Find order in product.orders array for that user
+  const order = product.orders.find(o => o.userId?.toString() === userId);
+  if (!order) return res.send("Order not found");
+
+  order.status = newStatus;
+
+  await product.save();
+
+  res.redirect("/orders"); // or wherever you want
+});
+
+
 
 
 

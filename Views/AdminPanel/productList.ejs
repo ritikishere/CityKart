@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" >
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -96,11 +96,15 @@
           <p><strong>Product:</strong> <%= order.product.title %> (₹<%= order.product.price %>)</p>
           <label class="block mt-2">
             <strong>Status:</strong>
-            <select class="bg-blue-200 text-blue-900 dark:bg-gray-700 dark:text-white p-1 rounded mt-1">
-              <option>Pending</option>
-              <option>Shipped</option>
-              <option>Delivered</option>
-            </select>
+          <form action="/setstatus/<%= order.product._id %>/<%= order.user._id  %>" method="post">
+             <select class="bg-blue-200 text-blue-900 dark:bg-gray-700 dark:text-white p-1 rounded mt-1" name="status">
+              <option value="pending" >Pending</option>
+              <option value="shipped" >Shipped</option>
+              <option value="Delivered" >Delivered</option>
+            </select> 
+            <button>Submit</button>
+          </form>
+            
           </label>
         </div>
         <img class="h-12 w-12 rounded-full" src="<%= order.product.image  %>" alt="">

@@ -4,7 +4,10 @@ const mongoose = require('mongoose');
 const userSchema =  mongoose.Schema({
     firstName: String,
     lastName: String,
-    image: String,
+    image: {
+        type: String,
+        default: "/uploads/defaultprofile.jpeg"
+    },
     contact: Number,
     password: String,
     email: String,
@@ -15,7 +18,8 @@ const userSchema =  mongoose.Schema({
     orderlist: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'product'
-    }
+    },
+   
     ]
 
 })
