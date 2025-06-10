@@ -35,8 +35,8 @@ require('dotenv').config();
  const mongoose = require('mongoose');
  const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/testapp';
  mongoose.connect(mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true, }) .then(() => console.log('MongoDB connected'))
+  
+   }) .then(() => console.log('MongoDB connected'))
 .catch((err) => console.error('MongoDB connection error:', err));
 
 
@@ -56,11 +56,44 @@ app.use(async (req, res, next) => {
 });
 
 
-app.get('/',async (req,res)=>{
-    let products = await productModel.find()
+app.get("/", async (req, res) => {
+  try {
+    const searchQuery = req.query.q;
+    let products;
 
-    res.render('Home', {products})
-})
+    if (searchQuery) {
+      // Search by category name (case-insensitive)
+      products = await productModel.find({ category: { $regex: new RegExp(searchQuery, "i") } });
+    } else {
+      // Show all products when no search
+      products = await productModel.find();
+    }
+
+    res.render("home", { products, user: req.user, searchQuery });
+  } catch (err) {
+    console.error("Error loading homepage:", err);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+
+
+app.get("/get-suggestions", async (req, res) => {
+  const query = req.query.query;
+
+  try {
+    const regex = new RegExp(query, "i");
+
+    const suggestions = await productModel.find({ category: regex }).distinct("category");
+
+    res.json(suggestions);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+
 
 
 app.post("/add-to-cart/:id", auth, async (req, res) => {
@@ -297,23 +330,8 @@ app.post("/addreview/:id/:reviewer", async (req, res) => {
 
 
 
-app.post("/setstatus/:productId/:userId", async (req, res) => {
-  const { productId, userId } = req.params;
-  const newStatus = req.body.status;
 
-  const product = await productModel.findById(productId);
-  if (!product) return res.send("Product not found");
 
-  // Find order in product.orders array for that user
-  const order = product.orders.find(o => o.userId?.toString() === userId);
-  if (!order) return res.send("Order not found");
-
-  order.status = newStatus;
-
-  await product.save();
-
-  res.redirect("/orders"); // or wherever you want
-});
 
 
 
@@ -326,5 +344,5 @@ app.post("/setstatus/:productId/:userId", async (req, res) => {
 
  const PORT = process.env.PORT || 3000;
  app.listen(PORT, () => {
-   console.log(`Server running on port ${PORT}`);
+   console.log("running");
  });

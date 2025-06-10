@@ -6,7 +6,6 @@ const userSchema =  mongoose.Schema({
     lastName: String,
     image: {
         type: String,
-        default: "/uploads/defaultprofile.jpeg"
     },
     contact: Number,
     password: String,

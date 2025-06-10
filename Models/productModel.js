@@ -33,7 +33,7 @@ const productSchema = mongoose.Schema({
             stars: Number,
             date: {
                 type: Date,
-                default: new Date().toLocaleDateString,
+                default: Date.now
             }
         }
     ],
@@ -43,14 +43,9 @@ const productSchema = mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
     },
-    status: {
-      type: String,
-      default: "Confirmed"
-    },
-    date: {
-      type: Date,
-      default: Date.now
-    }
+    
+    
+   
   }
 ]
 
