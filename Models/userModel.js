@@ -6,7 +6,7 @@ const userSchema =  mongoose.Schema({
     lastName: String,
     image: {
         type: String,
-        default: "/Public/defaultdp.avif"
+        
     },
     contact: Number,
     password: String,

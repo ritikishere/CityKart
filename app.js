@@ -201,7 +201,7 @@ app.get('/productlist', async (req, res) => {
 });
 
 
-app.get('/delete/:id',async (req,res)=>{
+app.post('/delete/:id',async (req,res)=>{
     let deletedproducts = await productModel.findOneAndDelete({_id : req.params.id })
     res.redirect('/productlist')
 

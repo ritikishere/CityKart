@@ -111,8 +111,8 @@
           </a>
 
           <div class="flex items-center gap-2">
-            <img 
-               src="/uploads/<%= user.image  %> "
+            <img src="/uploads/<%= user.image %>" onerror="this.onerror=null; this.src='/uploads/defaultprofile.webp';"  
+
               alt="Profile" 
               class="w-10 h-10 border border-white rounded-full border-2 dark:border-gray-800">
 
