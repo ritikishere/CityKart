@@ -47,7 +47,7 @@
 
   <!-- 🧾 Checkout Card -->
   <div class="bg-white dark:bg-white   dark:text-black rounded-2xl shadow-2xl  md:p-8 w-full max-w-3xl glow transition transform  hover:shadow-blue-500/90 dark:hover:shadow-yellow-500/90 hover:scale-103 ">
-    <h2 class="text-2xl md:text-3xl font-bold text-center mb-6 text-primary dark:text-yellow-600">🧾 Confirm Your Order</h2>
+    <h2 class="text-2xl md:text-3xl font-bold text-center mb-6 text-primary dark:text-yellow-600"> Confirm Your Order</h2>
 
     <div class="flex flex-col lg:flex-row items-start gap-6 lg:gap-10">
       
@@ -62,7 +62,7 @@
         <p class="text-lg font-bold text-green-600">Delivery Charge: <%=  Math.floor(product.price*0.1) - 12  %> </p>
         <p class="text-lg font-bold text-green-700">Total: ₹<%= Math.floor(product.price *0.1) - 12 + product.price %></p>
 
-        <div class="h-[30vh] w-[90vw] sm:w-[70vw] md:w-[50vw] lg:w-[30vw] bg-gray-200 overflow-auto p-5 rounded">
+        <div class="h-[30vh]  sm:w-[70vw] md:w-[50vw] lg:w-[30vw] bg-gray-200  overflow-auto p-5 rounded">
 
   <% product.reviews.forEach(async (review) => { %>
     <div class="flex items-start gap-4 border-b pb-4">
