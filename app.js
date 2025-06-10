@@ -69,7 +69,7 @@ app.get("/", async (req, res) => {
       products = await productModel.find();
     }
 
-    res.render("home", { products, user: req.user, searchQuery });
+    res.render("Home", { products, user: req.user, searchQuery });
   } catch (err) {
     console.error("Error loading homepage:", err);
     res.status(500).send("Internal Server Error");
@@ -274,11 +274,18 @@ app.post('/login', async (req,res) =>{
 
  bcrypt.compare(password, user.password, function(err, result) {
 
-        console.log(result)
+        
          if(!result)
-         return res.send('Something went wrong')
+         return res.send('Invailed User or Password')
          const token = jwt.sign({ id: user._id}, 'secretkey')
-         res.cookie('token', token)   
+         
+         
+         res.cookie('token', token, {
+             httpOnly: true,
+             maxAge: 7 * 24 * 60 * 60 * 1000, // 7 din
+             secure: true, // 💡 HTTPS pe zaroori hai!
+             sameSite: 'lax' // ya 'none' agar cross-site use ho
+});
          res.redirect("/") 
 });
 

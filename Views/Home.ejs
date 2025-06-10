@@ -175,8 +175,7 @@
             </button>
           </a>
 
-   <img 
-               src="/uploads/<%= user.image  %>" 
+   <img src="<%= user.image ? '/uploads/' + user.image : '/uploads/defaultdp.avif' %>"
               alt="Profile" 
               class="w-10 h-10 border border-white rounded-full  border-2 dark:border-gray-800">        
       </div>
