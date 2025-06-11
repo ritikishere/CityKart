@@ -66,7 +66,7 @@
 
   <% product.reviews.forEach(async (review) => { %>
     <div class="flex items-start gap-4 border-b pb-4">
-      <img src="https://tse1.mm.bing.net/th?id=OIP.2wRpI007gG7aZqFRrBmGRwHaFP&pid=Api&P=0&h=220" alt="User" class="w-12 h-12 rounded-full object-cover border-2 border-primary">
+      <img src="/uploads/<%= review.userId.image %>" onerror="this.onerror=null; this.src='/uploads/defaultprofile.webp';"  alt="User" class="w-12 h-12 rounded-full object-cover border-2 border-primary">
       <div>
         <div class="flex items-center justify-between">
           <h4 class="font-semibold text-lg">

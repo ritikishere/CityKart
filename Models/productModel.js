@@ -27,7 +27,7 @@ const productSchema = mongoose.Schema({
         {
             userId: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: 'User'
+                ref: 'user'
             },
             comment: String,
             stars: Number,
@@ -41,7 +41,7 @@ const productSchema = mongoose.Schema({
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
+      ref: 'user'
     },
     
     

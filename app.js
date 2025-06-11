@@ -107,7 +107,7 @@ app.post("/add-to-cart/:id", auth, async (req, res) => {
 })
 app.post("/buy/:id", auth, async (req, res) => {
   const user = await userModel.findById(req.user.id);
-  const product = await productModel.findById(req.params.id); 
+  const product = await productModel.findById(req.params.id).populate("reviews.userId"); 
   
 
   res.render("UserPanel/Buy", { product }); 
@@ -322,7 +322,9 @@ app.post("/addreview/:id/:reviewer", async (req, res) => {
     comment: comment,
     stars: stars,
     
+    
   });
+  console.log(stars)
 
   // Update rating details
   product.reviewno++;
