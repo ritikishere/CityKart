@@ -177,10 +177,13 @@
 
             </button>
           </a>
-
-   <img src="<%= user.image ? '/uploads/' + user.image : '/uploads/defaultdp.avif' %>"
+    <div class="flex gap-1">
+        <img src="/uploads/<%= user.image %>" onerror="this.onerror=null; this.src='/uploads/defaultprofile.webp';" 
               alt="Profile" 
-              class="w-10 h-10 border border-white rounded-full  border-2 dark:border-gray-800">        
+              class="w-10 h-10 border border-gray-300 rounded-full  border-2 dark:border-gray-800">   
+      <span class="font-semibold flex items-center dark:text-white text-blue-700 "><%= user.firstName  %></span> 
+    </div>
+       
       </div>
      
 

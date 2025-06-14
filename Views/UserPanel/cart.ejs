@@ -35,8 +35,7 @@
 
   <!-- 👤 User -->
   <div class="absolute top-4 right-20 flex items-center gap-2 cursor-pointer hover:scale-105 transition">
-    <img 
-               src="/uploads/<%= user.image  %>" 
+    <img src="/uploads/<%= user.image %>" onerror="this.onerror=null; this.src='/uploads/defaultprofile.webp';"  
               alt="Profile" 
               class="w-10 h-10 border border-white rounded-full border-2 dark:border-gray-800">
 

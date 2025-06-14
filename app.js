@@ -193,6 +193,8 @@ app.get('/productlist', async (req, res) => {
     });
   });
 
+  
+
   res.render('AdminPanel/productList', {
     products,
     orders,
@@ -261,6 +263,8 @@ app.get("/orderlist", auth, async (req,res)=>{
 
 app.get("/login", async (req,res)=>{
     res.render('UserPanel/login')
+    
+    
 })
 
 app.post('/logout', (req, res) => {
@@ -282,11 +286,12 @@ app.post('/login', async (req,res) =>{
          
          res.cookie('token', token, {
              httpOnly: true,
-             maxAge: 7 * 24 * 60 * 60 * 1000, // 7 din
-             secure: true, // 💡 HTTPS pe zaroori hai!
-             sameSite: 'lax' // ya 'none' agar cross-site use ho
+             maxAge: 7 * 24 * 60 * 60 * 1000, 
+             secure: true, 
+             sameSite: 'lax' 
 });
          res.redirect("/") 
+         
 });
 
    
